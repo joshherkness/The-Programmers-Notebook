@@ -22,5 +22,4 @@ iron:router
 fourseven:scss
 code-prettify
 simple:highlight.js
-xolvio:sharejs-ace
 arch:ace-editor
