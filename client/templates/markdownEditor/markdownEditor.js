@@ -5,7 +5,7 @@
 Template.markdownEditor.onRendered( function() {
 
     AceEditor.instance("editor",{
-        theme: "github",
+        theme: "tomorrow",
         mode: "markdown"
     },function(editor){
         editor.renderer.setScrollMargin(40, 40);
