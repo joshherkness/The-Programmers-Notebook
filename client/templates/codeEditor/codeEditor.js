@@ -19,7 +19,7 @@ Template.codeEditor.onRendered(function () {
 
     this.editor.getSession().setMode("ace/mode/" + Template.instance().currentMode.get());
 
-    this.editor.setTheme("ace/theme/monokai");
+    this.editor.setTheme("ace/theme/tomorrow");
 
     this.editor.renderer.setScrollMargin(40, 40);
 
