@@ -3,6 +3,8 @@
  */
 
 Meteor.startup( function () {
+
+    // Retrieve Source Code Pro font family
     WebFontConfig = {
         google: {
             families: ['Source+Code+Pro::latin']
@@ -17,4 +19,12 @@ Meteor.startup( function () {
         var s = document.getElementsByTagName('script')[0];
         s.parentNode.insertBefore(wf, s);
     })();
+
+
+     // Configure paths for mtr-ace-embed plugin
+     ace.config.set("modePath", "/packages/mrt_ace-embed/ace");
+     ace.config.set("themePath", "/packages/mrt_ace-embed/ace");
+     ace.config.set("workerPath", "/packages/mrt_ace-embed/ace");
+     ace.config.set("basePath", "/packages/mrt_ace-embed/ace");
+
 });

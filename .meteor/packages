@@ -22,4 +22,7 @@ iron:router
 fourseven:scss
 code-prettify
 simple:highlight.js
-arch:ace-editor
+reactive-var
+reactive-dict
+mrt:ace-embed
+twbs:bootstrap

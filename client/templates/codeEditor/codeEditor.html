@@ -1,0 +1,22 @@
+<!-- codeEditor.html -->
+<template name="codeEditor">
+    <br><br><br><br>
+    <div class="container">
+        {{#unless shouldHideMode}}
+            <div class="dropdown">
+                <button class="btn btn-mode-toggle dropdown-toggle {{#unless shouldEnableModeSelect}}disabled{{/unless}}" type="button" id="modeDropDown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    {{ getCurrentMode }}
+                </button>
+                <ul class="dropdown-menu" aria-labelledby="modeDropDown">
+                    {{#each getModes}}
+                    <li>
+                        <a id="dropdown-item" value="{{name}}">{{caption}}</a>
+                    </li>
+                    {{/each}}
+                </ul>
+            </div>
+        {{/unless}}
+        <!-- DOM element used to attach the Ace editor to -->
+        <div id="editor"></div>
+    </div>
+</template>
