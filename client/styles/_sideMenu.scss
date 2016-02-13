@@ -1,0 +1,51 @@
+// sideMenu.scss
+.side-menu {
+    position: fixed;
+    width: $side-menu-width;
+    margin-right: -$side-menu-width;
+    float: left;
+    overflow: hidden;
+    background-color: $side-menu-color;
+    color: #eee;
+    height: 100vh;
+    z-index: 1000;
+    padding: 0;
+    h1 {
+        margin: 10px;
+        color: rgba(0, 0, 0, 0.5);
+        font-size: 12px;
+        text-transform: uppercase;
+    }
+    .list-group {
+        background-color: transparent;
+        margin: 0;
+        border-width: 0;
+        border-radius: 0;
+        .list-group-item {
+            background-color: transparent;
+            border-radius: 0;
+            border-width: 0;
+            color: #999;
+            position: relative;
+            .active {
+                color: white;
+                background-color: rgba(0, 0, 0, 0.5);
+            }
+            &:hover {
+                color: white;
+            }
+            .delete {
+                background-color: transparent;
+                border-radius: 0;
+                position: absolute;
+                top: 0;
+                bottom: 0;
+                right: 0;
+                bottom: 0;
+                &:hover {
+                    color: red;
+                }
+            }
+        }
+    }
+}

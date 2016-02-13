@@ -1,0 +1,18 @@
+/*
+ * main.scss
+ */
+
+// Import all style constants & colors
+@import "{}/client/styles/constants.scss";
+@import "{}/client/styles/colors.scss";
+
+// Bootstrap
+@import '{reywood:bootstrap3-sass}/bootstrap';
+
+// Import all partials (Sheets that are not compiled)
+@import "{}/client/styles/_applicationLayout.scss";
+@import "{}/client/styles/_editor.scss";
+@import "{}/client/styles/_sideMenu.scss";
+
+// Bootstrap overrides
+@import "{}/client/styles/bootstrap_override.scss";

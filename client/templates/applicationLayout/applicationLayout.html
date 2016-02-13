@@ -1,0 +1,11 @@
+<!-- mainLayout.html -->
+<template name="applicationLayout">
+    <div class="application">
+        <div class="wrapper">
+            {{> sideMenu}}
+            <div class="content-wrapper">
+                {{> yield}}
+            </div>
+        </div>
+    </div>
+</template>

@@ -10,6 +10,7 @@ Template.codeEditor.onCreated(function () {
     this.shouldHideMode = new ReactiveVar(false);
     this.shouldEnableModeSelect = new ReactiveVar(true);
 
+    this.buffer = new Buffer("editor");
 });
 
 Template.codeEditor.onRendered(function () {
@@ -33,7 +34,7 @@ Template.codeEditor.onRendered(function () {
         displayIndentGuides: false,
         showPrintMargin: false,
         scrollPastEnd: 0.5,
-        wrap: false
+        wrap: true
     });
 
     this.autorun( function () {
