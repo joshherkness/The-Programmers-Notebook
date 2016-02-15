@@ -1,5 +1,7 @@
 /*
  * startup.js
+ *
+ * This function will be run on Meteors startup.
  */
 
 Meteor.startup( function () {

@@ -1,0 +1,10 @@
+/*
+ * editor.scss
+ */
+
+.editor {
+    clear: both;
+    overflow: auto;
+    margin-left: $side-menu-width;
+    min-height: 100vh;
+}

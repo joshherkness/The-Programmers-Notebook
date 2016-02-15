@@ -1,0 +1,14 @@
+/*
+ * applicationLayout.scss
+ */
+
+.application {
+    margin: 0;
+    height: 100%;
+}
+
+.content {
+	position: relative;
+	min-height: 300px;
+	margin: 0 0 0 $side-menu-width;
+}
