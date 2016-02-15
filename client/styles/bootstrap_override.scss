@@ -1,7 +1,11 @@
-// bootstrap_override.scss
+/*
+ * bootstrap_override.scss
+ */
+
 .container {
     width: 100%;
 }
+
 .btn {
     &:focus, &:active, &.active {
         background-image: none;
