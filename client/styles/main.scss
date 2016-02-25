@@ -7,14 +7,15 @@
 // Import all base style sheets
 @import "{}/client/styles/base/constants.scss";
 @import "{}/client/styles/base/colors.scss";
+@import "{}/client/styles/base/components.scss";
 
 // Bootstrap
 @import '{reywood:bootstrap3-sass}/bootstrap';
+
+// Bootstrap overrides
+@import "{}/client/styles/bootstrap_override.scss";
 
 // Import all partials (Sheets that are not compiled)
 @import "{}/client/styles/_applicationLayout.scss";
 @import "{}/client/styles/_editor.scss";
 @import "{}/client/styles/_menu.scss";
-
-// Bootstrap overrides
-@import "{}/client/styles/bootstrap_override.scss";
