@@ -9,8 +9,8 @@
 }
 
 .content {
-	position: relative;
-	min-height: 100vh;
-	margin: 0 0 0 $side-menu-width;
+	position: absolute;
+    left: $side-menu-width;
+    right: 0;
     overflow: auto;
 }

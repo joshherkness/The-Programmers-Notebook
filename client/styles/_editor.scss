@@ -9,9 +9,10 @@
 
         background-color: white;
         border-bottom: 1px solid #f0f0f0;
-        position: fixed;
+        position: relative;
         top: 0;
-        width: 100%;
+        right: 0;
+        left: 0;
         margin: 0;
         padding: 5px;
         height: $top-menu-height;
@@ -36,6 +37,7 @@
         border: 1px solid rgba(0, 0, 0, .1);
         box-shadow: 0 1px 2px 0 rgba(0, 0, 0, .05);
         color: #67686e;
+        vertical-align: top;
 
         &:hover {
             text-decoration: none;
@@ -43,48 +45,56 @@
         }
     }
 
-    ul.editor-header-segment-control {
+    .editor-header-segment-control {
 
-        display: inline-block;
-        vertical-align: top;
-        height:40px;
-        line-height:40px;
-        background:#fff;
-        color: #67686e;
-        list-style: none;
-        padding: 0;
-        margin: 5px;
-        font-size: 0;
+        display: block;
+        font-size: 0;    // Fix to remove spacing between items
 
-        li {
+        .segment-control-option {
+
+            @extend .editor-header-button;
+
             font-size:12px;
-            display: inline-block;
-            background-color: white;
-            text-align:center;
-            margin: 0;
-            border: 1px solid rgba(0, 0, 0, .1);
-            box-shadow: 0 1px 2px 0 rgba(0, 0, 0, .05);
-            margin:0;
             padding: 0 10px;
+            width: auto;
+            border-radius: 0;
+            line-height: 40px;
 
             &.selected {
-                background-color: $menu-background-color;
-                color: darken(white, 5);
+                background-color: darken(white, 2.5);
             }
 
             &:first-child {
                 border-top-left-radius: 20px;
                 border-bottom-left-radius: 20px;
+                margin-right: 0;
             }
 
             &:last-child {
                 border-top-right-radius: 20px;
                 border-bottom-right-radius: 20px;
-            }
+                margin-left: 0;
 
-            &:hover {
-                color: $turquoise-color;
             }
+        }
+    }
+
+    textarea.editor-header-textarea {
+        @extend .editor-header-button;
+
+        font-size: 12px;
+        padding: 0 20px;
+        line-height: 40px;
+        border-radius: 20px;
+        width: 200px;
+        resize: none;
+        text-align: left;
+        overflow-x: scroll;
+        overflow-y: hidden;
+
+        &:focus {
+            border-color: $turquoise-color;
+            outline: 0 none;
         }
     }
 }
