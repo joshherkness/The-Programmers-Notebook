@@ -3,12 +3,13 @@
  */
 
 .editor {
+
     padding: 0;
 
     .editor-header {
 
-        background-color: white;
-        border-bottom: 1px solid #f0f0f0;
+        background-color: $editor-header-background-color;
+        border-bottom: 1px solid $editor-header-item-border-color;
         position: relative;
         top: 0;
         right: 0;
@@ -21,80 +22,90 @@
             float: right;
         }
 
-    }
+        .editor-header-item {
 
-    .editor-header-button {
-
-        margin: 5px;
-        display:inline-block;
-        width:40px;
-        height:40px;
-        border-radius:50%;
-        font-size:40px;
-        line-height:35px;
-        text-align:center;
-        background:#fff;
-        border: 1px solid rgba(0, 0, 0, .1);
-        box-shadow: 0 1px 2px 0 rgba(0, 0, 0, .05);
-        color: #67686e;
-        vertical-align: top;
-
-        &:hover {
-            text-decoration: none;
-            color: $turquoise-color;
+            margin: 5px;
+            display:inline-block;
+            width:40px;
+            height:40px;
+            border-radius:50%;
+            font-size:40px;
+            line-height:35px;
+            text-align:center;
+            background:#fff;
+            border: 1px solid $editor-header-item-border-color;
+            box-shadow: 0 1px 2px 0 rgba($editor-header-item-border-color, .05);
+            color: $editor-header-item-color;
+            background-color: $editor-header-item-background-color;
+            vertical-align: top;
         }
-    }
 
-    .editor-header-segment-control {
+        .editor-header-button {
 
-        display: block;
-        font-size: 0;    // Fix to remove spacing between items
+            @extend .editor-header-item;
 
-        .segment-control-option {
+            &:hover {
+                text-decoration: none;
+                color: $editor-header-item-tint-color;
+            }
+        }
 
-            @extend .editor-header-button;
+        .editor-header-segment-control {
 
-            font-size:12px;
-            padding: 0 10px;
-            width: auto;
-            border-radius: 0;
+            display: block;
+            font-size: 0;    // Fix to remove spacing between items
+
+            .segment-control-option {
+
+                @extend .editor-header-item;
+
+                font-size:12px;
+                padding: 0 20px;
+                width: auto;
+                border-radius: 0;
+                line-height: 40px;
+
+                &.selected {
+                    background-color: darken($editor-header-background-color, 2.5);
+                }
+
+                &:hover {
+                    text-decoration: none;
+                }
+
+                &:first-child {
+                    border-top-left-radius: 20px;
+                    border-bottom-left-radius: 20px;
+                    margin-right: 0;
+                }
+
+                &:last-child {
+                    border-top-right-radius: 20px;
+                    border-bottom-right-radius: 20px;
+                    margin-left: 0;
+
+                }
+            }
+        }
+
+        textarea.editor-header-textarea {
+
+            @extend .editor-header-item;
+
+            font-size: 12px;
+            padding: 0 20px;
             line-height: 40px;
+            border-radius: 20px;
+            width: 200px;
+            resize: none;
+            text-align: left;
+            overflow-x: scroll;
+            overflow-y: hidden;
 
-            &.selected {
-                background-color: darken(white, 2.5);
+            &:focus {
+                border-color: $editor-header-item-tint-color;
+                outline: 0 none;
             }
-
-            &:first-child {
-                border-top-left-radius: 20px;
-                border-bottom-left-radius: 20px;
-                margin-right: 0;
-            }
-
-            &:last-child {
-                border-top-right-radius: 20px;
-                border-bottom-right-radius: 20px;
-                margin-left: 0;
-
-            }
-        }
-    }
-
-    textarea.editor-header-textarea {
-        @extend .editor-header-button;
-
-        font-size: 12px;
-        padding: 0 20px;
-        line-height: 40px;
-        border-radius: 20px;
-        width: 200px;
-        resize: none;
-        text-align: left;
-        overflow-x: scroll;
-        overflow-y: hidden;
-
-        &:focus {
-            border-color: $turquoise-color;
-            outline: 0 none;
         }
     }
 }

@@ -12,5 +12,11 @@
 	position: absolute;
     left: $side-menu-width;
     right: 0;
-    overflow: auto;
+
+    -webkit-transition: all 0.2s ease 0s; /* Safari */
+    transition: all 0.2s ease 0s;
+
+	&.expand {
+		left: 0px;
+	}
 }
