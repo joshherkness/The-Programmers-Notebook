@@ -4,19 +4,19 @@
 
 .editor {
 
-    padding: 0;
-
     .editor-header {
 
+        // Theme
         background-color: $editor-header-background-color;
         border-bottom: 1px solid $editor-header-item-border-color;
+
+        // Style
         position: relative;
         top: 0;
         right: 0;
         left: 0;
-        margin: 0;
-        padding: 5px;
-        height: $top-menu-height;
+        height: $editor-header-height;
+        overflow-x: hidden;
 
         .right {
             float: right;
@@ -24,20 +24,28 @@
 
         .editor-header-item {
 
-            margin: 5px;
-            display:inline-block;
-            width:40px;
-            height:40px;
-            border-radius:50%;
-            font-size:40px;
-            line-height:35px;
-            text-align:center;
-            background:#fff;
+            // Theme
             border: 1px solid $editor-header-item-border-color;
             box-shadow: 0 1px 2px 0 rgba($editor-header-item-border-color, .05);
             color: $editor-header-item-color;
             background-color: $editor-header-item-background-color;
+
+            // Style
+            margin: calc(#{$editor-header-height - $editor-header-item-height} / 2) 5px;
+            display:inline-block;
+            width:$editor-header-item-height;
+            height:$editor-header-item-height;
+            border-radius:50%;
+            line-height: $editor-header-item-height;
+            text-align:center;
             vertical-align: top;
+
+            i {
+                font-size: 20px;
+                line-height: inherit;
+                display: inline;
+            }
+
         }
 
         .editor-header-button {
@@ -45,25 +53,26 @@
             @extend .editor-header-item;
 
             &:hover {
-                text-decoration: none;
                 color: $editor-header-item-tint-color;
+                text-decoration: none;
             }
         }
 
         .editor-header-segment-control {
 
             display: block;
-            font-size: 0;    // Fix to remove spacing between items
+            // Fix to remove spacing between items
+            font-size: 0;
 
             .segment-control-option {
 
                 @extend .editor-header-item;
 
+                // Style
                 font-size:12px;
-                padding: 0 20px;
+                padding: 0 calc(#{$editor-header-item-height} / 2);
                 width: auto;
                 border-radius: 0;
-                line-height: 40px;
 
                 &.selected {
                     background-color: darken($editor-header-background-color, 2.5);
@@ -74,14 +83,14 @@
                 }
 
                 &:first-child {
-                    border-top-left-radius: 20px;
-                    border-bottom-left-radius: 20px;
+                    border-top-left-radius: calc(#{$editor-header-item-height} / 2);
+                    border-bottom-left-radius: calc(#{$editor-header-item-height} / 2);
                     margin-right: 0;
                 }
 
                 &:last-child {
-                    border-top-right-radius: 20px;
-                    border-bottom-right-radius: 20px;
+                    border-top-right-radius: calc(#{$editor-header-item-height} / 2);
+                    border-bottom-right-radius: calc(#{$editor-header-item-height} / 2);
                     margin-left: 0;
 
                 }
@@ -93,9 +102,9 @@
             @extend .editor-header-item;
 
             font-size: 12px;
-            padding: 0 20px;
-            line-height: 40px;
-            border-radius: 20px;
+            padding: calc(#{$editor-header-item-height} / 2 - 6px) calc(#{$editor-header-item-height} /2) 0 calc(#{$editor-header-item-height} /2); // Hack to help vertically center text in textarea
+            line-height: 12px;
+            border-radius: calc(#{$editor-header-item-height} / 2);
             width: 200px;
             resize: none;
             text-align: left;
