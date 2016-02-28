@@ -1,0 +1,16 @@
+#editor {
+    height: 1000px;
+    position: relative;
+}
+
+.ace_editor {
+
+    .ace_content {
+        padding: 0 20px;
+    }
+
+    .ace_gutter {
+        padding: 0 0;
+        color: #ddd;
+    }
+}

@@ -5,27 +5,12 @@ Template.editor.events({
     }
 });
 
-// editor.js
-/*
-Template.editor.onCreated(function () {
-
-    // Variables
-    this.currentMode = new ReactiveVar("text");
-    this.modeList = ace.require('ace/ext/modelist');
-    this.shouldHideMode = new ReactiveVar(false);
-    this.shouldEnableModeSelect = new ReactiveVar(true);
-
-    this.buffer = new Buffer("editor");
-});
-*/
-
 Template.editor.onRendered(function () {
 
     // Create the ace editor
     this.editor = ace.edit("editor");
-    console.log("created editor");
 
-    this.editor.getSession().setMode("ace/mode/" + Template.instance().currentMode.get());
+    this.editor.getSession().setMode("ace/mode/text");
 
     this.editor.setTheme("ace/theme/tomorrow");
 
@@ -34,7 +19,7 @@ Template.editor.onRendered(function () {
     this.editor.setOptions({
         highlightActiveLine: false,
         highlightGutterLine: false,
-        showGutter:true,
+        showGutter:false,
         fontSize: "14pt",
         fontFamily: "Source Code Pro",
         tabSize: 4,
@@ -43,9 +28,4 @@ Template.editor.onRendered(function () {
         scrollPastEnd: 0.5,
         wrap: true
     });
-
-    this.autorun( function () {
-        this.editor.getSession().setMode("ace/mode/" + this.currentMode.get());
-    }.bind(this));
-
 });
