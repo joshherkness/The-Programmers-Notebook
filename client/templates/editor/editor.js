@@ -6,7 +6,8 @@ Template.editor.events({
 });
 
 // editor.js
-Template.markdownEditor.onCreated(function () {
+/*
+Template.editor.onCreated(function () {
 
     // Variables
     this.currentMode = new ReactiveVar("text");
@@ -16,11 +17,13 @@ Template.markdownEditor.onCreated(function () {
 
     this.buffer = new Buffer("editor");
 });
+*/
 
-Template.markdownEditor.onRendered(function () {
+Template.editor.onRendered(function () {
 
     // Create the ace editor
     this.editor = ace.edit("editor");
+    console.log("created editor");
 
     this.editor.getSession().setMode("ace/mode/" + Template.instance().currentMode.get());
 
