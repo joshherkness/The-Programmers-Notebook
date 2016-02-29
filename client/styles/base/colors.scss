@@ -9,18 +9,27 @@
  * Theme colors
  */
 
-$space-gray-color:         #1c1d22;
-$electric-yellow-color:    #ffe600;
-$destroy-red-color:        #ed4b18;
+$black-russian-color:                 #25262d;
+$mountain-meadow-color:               #1abc9c;
+$comet-color:                         #67686e;
+$white-smoke-color:                   rgba(#000, 0.1);
 
 /*
  * Menu colors
  */
 
-$menu-background-color:    $space-gray-color;
-$menu-primary-color:       $electric-yellow-color;
+$menu-background-color:    $black-russian-color;
+$menu-primary-color:       $mountain-meadow-color;
 $menu-secondary-color:     white;
 
 /*
- * Editor colors
+ * Editor Header colors
  */
+
+$editor-header-background-color:         white;
+$editor-header-color:                    $comet-color;
+$editor-header-border-color:             $white-smoke-color;
+$editor-header-item-background-color:    white;
+$editor-header-item-color:               $comet-color;
+$editor-header-item-tint-color:          $mountain-meadow-color;
+$editor-header-item-border-color:        $white-smoke-color;

@@ -3,5 +3,118 @@
  */
 
 .editor {
-    
+
+    .editor-header {
+
+        // Theme
+        background-color: $editor-header-background-color;
+        border-bottom: 1px solid $editor-header-item-border-color;
+
+        // Style
+        position: relative;
+        top: 0;
+        right: 0;
+        left: 0;
+        height: $editor-header-height;
+        overflow-x: hidden;
+
+        .right {
+            float: right;
+        }
+
+        .editor-header-item {
+
+            // Theme
+            border: 1px solid $editor-header-item-border-color;
+            box-shadow: 0 1px 2px 0 rgba($editor-header-item-border-color, .05);
+            color: $editor-header-item-color;
+            background-color: $editor-header-item-background-color;
+
+            // Style
+            margin: calc(#{$editor-header-height - $editor-header-item-height} / 2) 5px;
+            display:inline-block;
+            width:$editor-header-item-height;
+            height:$editor-header-item-height;
+            border-radius:50%;
+            line-height: $editor-header-item-height;
+            text-align:center;
+            vertical-align: top;
+
+            i {
+                font-size: 20px;
+                line-height: inherit;
+                display: inline;
+            }
+
+        }
+
+        .editor-header-button {
+
+            @extend .editor-header-item;
+
+            &:hover {
+                color: $editor-header-item-tint-color;
+                text-decoration: none;
+            }
+        }
+
+        .editor-header-segment-control {
+
+            display: block;
+            // Fix to remove spacing between items
+            font-size: 0;
+
+            .segment-control-option {
+
+                @extend .editor-header-item;
+
+                // Style
+                font-size:12px;
+                padding: 0 calc(#{$editor-header-item-height} / 2);
+                width: auto;
+                border-radius: 0;
+
+                &.selected {
+                    background-color: darken($editor-header-background-color, 2.5);
+                }
+
+                &:hover {
+                    text-decoration: none;
+                }
+
+                &:first-child {
+                    border-top-left-radius: calc(#{$editor-header-item-height} / 2);
+                    border-bottom-left-radius: calc(#{$editor-header-item-height} / 2);
+                    margin-right: 0;
+                }
+
+                &:last-child {
+                    border-top-right-radius: calc(#{$editor-header-item-height} / 2);
+                    border-bottom-right-radius: calc(#{$editor-header-item-height} / 2);
+                    margin-left: 0;
+
+                }
+            }
+        }
+
+        textarea.editor-header-textarea {
+
+            @extend .editor-header-item;
+
+            font-size: 12px;
+            padding: calc(#{$editor-header-item-height} / 2 - 6px) calc(#{$editor-header-item-height} /2) 0 calc(#{$editor-header-item-height} /2); // Hack to help vertically center text in textarea
+            line-height: 12px;
+            border-radius: calc(#{$editor-header-item-height} / 2);
+            width: 200px;
+            resize: none;
+            text-align: left;
+            overflow-x: scroll;
+            overflow-y: hidden;
+
+            &:focus {
+                border-color: $editor-header-item-tint-color;
+                outline: 0 none;
+            }
+        }
+    }
 }

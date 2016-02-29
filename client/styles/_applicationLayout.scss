@@ -2,14 +2,21 @@
  * applicationLayout.scss
  */
 
-.application {
+.application-container {
     margin: 0;
+    padding: 0;
     height: 100%;
 }
 
 .content {
-	position: relative;
-	min-height: 100vh;
-	margin: 0 0 0 $side-menu-width;
-    overflow: auto;
+	position: fixed;
+    left: $side-menu-width;
+    right: 0;
+
+    -webkit-transition: all 0.2s ease 0s; /* Safari */
+    transition: all 0.2s ease 0s;
+
+	&.expand {
+		left: 0px;
+	}
 }
