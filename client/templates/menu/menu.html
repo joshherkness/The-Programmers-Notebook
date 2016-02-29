@@ -1,19 +1,27 @@
 <!-- sideMenu.html -->
 <template name="menu">
-    <nav class="menu">
+  <nav id="menu" class="menu">
         <div class="menu-header">
             <p>My Documents</p>
         </div>
         <div class="menu-wrapper">
             <ul class="menu-list">
-                <li class="menu-item active"><a href="#" class="pull-right destroy">&times;</a><a href="#" class="menu-link">Super.md</a></li>
-                <li class="menu-item"><a href="#" class="pull-right destroy">&times;</a><a href="#" class="menu-link">Cala.md</a></li>
-                <li class="menu-item"><a href="#" class="pull-right destroy">&times;</a><a href="#" class="menu-link">Fraga.md</a></li>
-                <li class="menu-item"><a href="#" class="pull-right destroy">&times;</a><a href="#" class="menu-link">Listic.md</a></li>
-            </ul>
+                {{#each files}}
+                  {{> file}}
+                {{/each}}
+             </ul>
         </div>
         <div class="menu-footer">
-            <a href="#" class="btn btn-create">Create</a>
+          <form class="new-file">
+            Create File: <input type="text" name="text" placeholder="Type to add new files" />
+          </form>
         </div>
-    </nav>
+  </nav>
+</template>
+
+<template name="file">
+  <li class="{{#if checked}}checked{{/if}}">
+    <button class="delete">&times;</button>
+    <span class="text">{{text}}</span>
+  </li>
 </template>
