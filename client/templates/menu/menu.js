@@ -32,11 +32,9 @@ Template.menu.events({
 Template.file.events({
 
     "click": function() {
-        console.log("Hello");
         Session.set('currentDocument', this._id);
     },
     "click .destroy": function() {
-        console.log("Remove");
         Documents.remove(this._id);
     }
 
