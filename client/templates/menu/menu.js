@@ -1,36 +1,47 @@
 // menu.js
-Files = new Mongo.Collection(null);
+Documents = new Mongo.Collection(null);
 
 Template.menu.helpers({
-  files: function () {
-  // Show newest tasks at the top
-  return Files.find({}, {sort: {createdAt: -1}});
-}
+    files: function() {
+        // Show newest tasks at the top
+        return Documents.find({}, {
+            sort: {
+                createdAt: -1
+            }
+        });
+    }
 })
 
 Template.menu.events({
-  "submit .new-file": function (event) {
-  // Prevent default browser form submit
-  event.preventDefault();
-  // Get value from form element
-  var text = event.target.text.value;
-  // Insert a task into the collection
-  Files.insert({
-    text: text,
-    data: "",
-    createdAt: new Date() // current time
-  });
-  // Clear form
-  event.target.text.value = "";
-},
-    'click .menu-item': function (event) {
-        console.log("Click menu item");
+    "click .btn-create": function(event) {
+
+        event.preventDefault();
+
+        // Get the current date
+        var currentDate = new Date();
+
+        // Insert a file into the collection
+        Documents.insert({
+            title: currentDate.getTime(),
+            data: "",
+            createdAt: new Date()
+        });
     }
 });
 
 Template.file.events({
 
-  "click .delete": function () {
-    Files.remove(this._id);
-  }
+    "click": function() {
+        Session.set('currentDocument', this._id);
+    },
+    "click .destroy": function() {
+        Documents.remove(this._id);
+    }
+
+});
+
+Template.file.helpers({
+    isActive: function(){
+        return(Session.equals("currentDocument", this._id));
+    }
 });
