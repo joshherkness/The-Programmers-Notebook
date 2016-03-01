@@ -4,7 +4,12 @@
     <div class="editor">
         <div class="editor-header">
             <a href="" id="menu-toggle" class="editor-header-button"><i class="material-icons">menu</i></a>
-            <textarea name="" id="" cols="30" rows="1" placeholder="Untitled.md" class="editor-header-textarea"></textarea>
+            <form id="title-form">
+                {{#with currentDocument}}
+                    <input class="editor-header-textarea" type="text" name="text" id="title" placeholder="title" value="{{title}}">
+                {{/with}}
+            </form>
+            <!--<textarea id="title" cols="30" rows="1" placeholder="Untitled.md" class="editor-header-textarea"></textarea>-->
             <a href="" class="editor-header-button"><i class="material-icons">format_bold</i></a>
             <a href="" class="editor-header-button"><i class="material-icons">format_italic</i></a>
             <a href="" class="editor-header-button"><i class="material-icons">code</i></a>
@@ -18,7 +23,7 @@
             </div>
         </div>
         <!-- Temp placeholder for text editors -->
-        <div id="editor"></div>
+        <div id="editor" class="editor-content"></div>
         <!--
         <div class="container" style="background-color: white; height: 1000px; overflow-y: hidden;">
           <div id="editor"></div>

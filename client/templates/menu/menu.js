@@ -1,5 +1,4 @@
 // menu.js
-Documents = new Mongo.Collection(null);
 
 Template.menu.helpers({
     files: function() {
@@ -10,7 +9,7 @@ Template.menu.helpers({
             }
         });
     }
-})
+});
 
 Template.menu.events({
     "click .btn-create": function(event) {
@@ -23,7 +22,7 @@ Template.menu.events({
         // Insert a file into the collection
         Documents.insert({
             title: currentDate.getTime(),
-            data: "",
+            content: currentDate.toString(),
             createdAt: new Date()
         });
     }
