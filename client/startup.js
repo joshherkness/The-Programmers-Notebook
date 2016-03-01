@@ -6,6 +6,17 @@
 
 Meteor.startup( function () {
 
+    // Initiallize the documents collection
+    Documents = new Mongo.Collection(null);
+
+    Documents.insert({
+        title: "Getting Started",
+        content: "# Getting Started",
+        createdAt: new Date()
+    });
+
+    Session.set('currentDocument', Documents.findOne({title: "Getting Started"})._id);
+
     // Retrieve Source Code Pro font family
     WebFontConfig = {
         google: {

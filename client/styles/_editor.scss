@@ -4,6 +4,12 @@
 
 .editor {
 
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+
     .editor-header {
 
         // Theme
@@ -97,12 +103,15 @@
             }
         }
 
-        textarea.editor-header-textarea {
+        form {
+            display: inline-block;
+        }
+
+        input.editor-header-textarea {
 
             @extend .editor-header-item;
-
             font-size: 12px;
-            padding: calc(#{$editor-header-item-height} / 2 - 6px) calc(#{$editor-header-item-height} /2) 0 calc(#{$editor-header-item-height} /2); // Hack to help vertically center text in textarea
+            padding: calc(#{$editor-header-item-height} / 2 - 12px) calc(#{$editor-header-item-height} /2) 0 calc(#{$editor-header-item-height} /2); // Hack to help vertically center text in textarea
             line-height: 12px;
             border-radius: calc(#{$editor-header-item-height} / 2);
             width: 200px;
@@ -117,4 +126,26 @@
             }
         }
     }
+
+    .editor-content {
+
+        position: absolute;
+        top: $editor-header-height;
+        bottom: 0;
+        right: 0;
+        left: 0;
+    }
+
+    .ace_editor {
+
+        .ace_content {
+            padding: 0 20px;
+        }
+
+        .ace_gutter {
+            padding: 0 0;
+            color: #ddd;
+        }
+    }
+
 }

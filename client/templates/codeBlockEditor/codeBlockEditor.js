@@ -65,7 +65,7 @@ Template.codeEditor.helpers({
 });
 
 Template.codeEditor.events({
-    "click #dropdown-item" : function (event, template) {
+    "submit #dropdown-item" : function (event, template) {
         //console.log($(event.target).attr("value"));
         var mode = $(event.target).attr("value");
         template.currentMode.set(mode);
