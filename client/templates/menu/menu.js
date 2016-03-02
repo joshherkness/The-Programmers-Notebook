@@ -32,8 +32,12 @@ Template.file.events({
 
     "click": function() {
         Session.set('currentDocument', this._id);
+        Router.go('document.show', {_id: this._id});
     },
     "click .destroy": function() {
+        if (Session.get('currentDocument') == this._id) {
+            Session.set('currentDocument', undefined);
+        }
         Documents.remove(this._id);
     }
 

@@ -1,17 +1,24 @@
 // editor.js
 
+var editor;
+var lastEditor;
+
+Template.editor.onCreated( function() {
+    console.log("created");
+});
+
 Template.editor.onRendered(function () {
 
     // Create the ace editor
-    this.editor = ace.edit("editor");
+    editor = ace.edit("editor");
 
-    this.editor.getSession().setMode("ace/mode/markdown");
+    editor.getSession().setMode("ace/mode/markdown");
 
-    this.editor.setTheme("ace/theme/tomorrow");
+    editor.setTheme("ace/theme/tomorrow");
 
-    this.editor.renderer.setScrollMargin(40, 40);
+    editor.renderer.setScrollMargin(40, 40);
 
-    this.editor.setOptions({
+    editor.setOptions({
         highlightActiveLine: false,
         highlightGutterLine: false,
         showGutter:true,
@@ -25,12 +32,12 @@ Template.editor.onRendered(function () {
         showFoldWidgets: false
     });
 
-    this.editor.setValue();
+    //editor.setValue();
 
     this.autorun( function () {
-        if (Session.get('currentDocument')) {
-            // Display the current documents data
-            this.editor.setValue(getCurrentDocumentContent());
+        if (this.data) {
+            console.log(this.data.content);
+            editor.setValue(this.data.content);
         }
     }.bind(this));
 });
@@ -39,8 +46,12 @@ Template.editor.helpers({
     create: function(){
 
     },
-    currentDocument: function() {
+    currentDocument: function () {
+        //console.log(getCurrentDocument());
         return getCurrentDocument();
+    },
+    currentDocumentTitle: function () {
+        return getCurrentDocumentTitle();
     }
 });
 
@@ -57,6 +68,10 @@ Template.editor.events({
         console.log("change");
     }
 });
+
+function redrawEditor(editor) {
+
+}
 
 
 /**

@@ -3,20 +3,35 @@
 <template name="editor">
     <div class="editor">
         <div class="editor-header">
-            <a href="" id="menu-toggle" class="editor-header-button"><i class="material-icons">menu</i></a>
+            <a href="" id="menu-toggle" class="editor-header-button">
+                <i class="material-icons">menu</i>
+            </a>
             <form id="title-form">
-                {{#with currentDocument}}
-                    <input class="editor-header-textarea" type="text" name="text" id="title" placeholder="title" value="{{title}}">
-                {{/with}}
+                <input class="editor-header-textarea" type="text" name="text" id="title" placeholder="title" value="{{ title }}">
+
             </form>
             <!--<textarea id="title" cols="30" rows="1" placeholder="Untitled.md" class="editor-header-textarea"></textarea>-->
-            <a href="" class="editor-header-button"><i class="material-icons">format_bold</i></a>
-            <a href="" class="editor-header-button"><i class="material-icons">format_italic</i></a>
-            <a href="" class="editor-header-button"><i class="material-icons">code</i></a>
-            <a href="" class="editor-header-button"><i class="material-icons">link</i></a>
-            <a href="" class="editor-header-button"><i class="material-icons">image</i></a>
-            <a href="" class="editor-header-button"><i class="material-icons">text_format</i></a>
-            <a href="" class="editor-header-button right"><i class="material-icons">more_horiz</i></a>
+            <a href="" class="editor-header-button">
+                <i class="material-icons">format_bold</i>
+            </a>
+            <a href="" class="editor-header-button">
+                <i class="material-icons">format_italic</i>
+            </a>
+            <a href="" class="editor-header-button">
+                <i class="material-icons">code</i>
+            </a>
+            <a href="" class="editor-header-button">
+                <i class="material-icons">link</i>
+            </a>
+            <a href="" class="editor-header-button">
+                <i class="material-icons">image</i>
+            </a>
+            <a href="" class="editor-header-button">
+                <i class="material-icons">text_format</i>
+            </a>
+            <a href="" class="editor-header-button right">
+                <i class="material-icons">more_horiz</i>
+            </a>
             <div class="editor-header-segment-control right">
                 <a href="" class="segment-control-option selected">Markdown</a>
                 <a href="" class="segment-control-option">Preview</a>
