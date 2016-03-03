@@ -15,8 +15,6 @@ Meteor.startup( function () {
         createdAt: new Date()
     });
 
-    Session.set('currentDocument', Documents.findOne({title: "Getting Started"})._id);
-
     // Retrieve Source Code Pro font family
     WebFontConfig = {
         google: {

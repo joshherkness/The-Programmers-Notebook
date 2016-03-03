@@ -30,13 +30,16 @@ Template.menu.events({
 
 Template.file.events({
 
-    "click": function() {
+    "click": function(event, template) {
         Session.set('currentDocument', this._id);
-        Router.go('document.show', {_id: this._id});
+        Router.go('editor.selected', {_id: this._id});
     },
-    "click .destroy": function() {
-        if (Session.get('currentDocument') == this._id) {
+    "click .destroy": function(event, template) {
+
+        var context = template.data;
+        if (context._id == this._id) {
             Session.set('currentDocument', undefined);
+            Router.go('editor.empty');
         }
         Documents.remove(this._id);
     }
