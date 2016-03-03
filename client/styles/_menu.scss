@@ -33,6 +33,7 @@
 .menu-item {
 	display: block;
 	width: 100%;
+	cursor: pointer;
 
     &:hover .destroy{
         display: block;

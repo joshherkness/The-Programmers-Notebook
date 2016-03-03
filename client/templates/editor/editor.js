@@ -1,17 +1,15 @@
 // editor.js
 
+var editor;
+
 Template.editor.onRendered(function () {
 
-    // Create the ace editor
-    this.editor = ace.edit("editor");
-
-    this.editor.getSession().setMode("ace/mode/markdown");
-
-    this.editor.setTheme("ace/theme/tomorrow");
-
-    this.editor.renderer.setScrollMargin(40, 40);
-
-    this.editor.setOptions({
+    // Create and configure the ace editor.
+    editor = ace.edit("editor");
+    editor.getSession().setMode("ace/mode/markdown");
+    editor.setTheme("ace/theme/tomorrow");
+    editor.renderer.setScrollMargin(40, 40);
+    editor.setOptions({
         highlightActiveLine: false,
         highlightGutterLine: false,
         showGutter:true,
@@ -25,117 +23,65 @@ Template.editor.onRendered(function () {
         showFoldWidgets: false
     });
 
-    this.editor.setValue();
+    this.autorun(function () {
+        var context = Template.currentData();
 
-    this.autorun( function () {
-        if (Session.get('currentDocument')) {
-            // Display the current documents data
-            this.editor.setValue(getCurrentDocumentContent());
+        if (context && context.content) {
+            editor.getSession().on('change', function(e) {
+                // If the vahnge function was not triggered by the system.
+                if (silent) {
+                    return;
+                }
+                // Update the document's content
+                setDocumentContent(context, editor.getValue());
+            });
+        }
+    });
+
+    this.autorun( function (e ) {
+        var context = Template.currentData();
+
+        if (context && context.content) {
+            silent = true;
+            editor.getSession().setValue(context.content);
+            silent = false;
         }
     }.bind(this));
 });
 
-Template.editor.helpers({
-    create: function(){
-
-    },
-    currentDocument: function() {
-        return getCurrentDocument();
-    }
-});
-
-
 Template.editor.events({
-    'blur #title' : function(event) {
-        setCurrentDocumentTitle(event.target.value);
+    'blur #title' : function(event, template) {
+        var context = template.data;
+        setDocumentTitle(context, event.target.value);
     },
-    'submit #title-form' : function(event) {
+    'submit #title-form' : function(event, template) {
+        var context = template.data;
         event.preventDefault();
-        setCurrentDocumentTitle(event.target.text.value);
+        setDocumentTitle(context, event.target.text.value);
     },
-    'change #editor' : function(event) {
+    'change #editor' : function(event, template) {
         console.log("change");
     }
 });
-
 
 /**
  * Functions
  */
 
-/**
- * Retrieves a JSON representation of a document, given its key.
- * @param  {String} id String value of the documents key.
- * @return {[JSON]}    JSON representation of the document.
- */
-function getDocument(id) {
-    var document;
-    if (Documents) {
-        document = Documents.findOne(id);
-    }
-    return document;
-}
-
-/**
- * Retrieves a JSON representation of the current document.
- * @return {Object} JSON representation of the document.
- */
-function getCurrentDocument() {
-    var currentDocument;
-    if (Session.get('currentDocument')) {
-        currentDocument = getDocument(Session.get('currentDocument'));
-    }
-    return currentDocument;
-}
-
-/**
- * Retrieves the value of a given key for the current document.
- * @param  {String} key String value of desired key.
- * @return {object}     Object with value of key.
- */
-function getCurrentDocumentValue(key) {
-    var value;
-    var currentDocument = getCurrentDocument();
-    if (currentDocument) {
-        value = currentDocument[key];
-    }
-    return value;
-}
-
-/**
- * Retrieves the current documents content value.
- * @return {Object} Object with value of key 'content'.
- */
-function getCurrentDocumentContent() {
-    return getCurrentDocumentValue("content");
-}
-
-/**
- * Retrieves the current documents title value.
- * @return {Object} Object with value of key 'title'.
- */
-function getCurrentDocumentTitle() {
-    return getCurrentDocumentValue("title");
-}
-
-/**
- * Sets the key of 'title' to a given value.
- * @param {String} title Desired title.
- */
-function setCurrentDocumentTitle(title) {
-    var currentDocument = getCurrentDocument();
-    if (currentDocument) {
-        Documents.update({_id: Session.get('currentDocument')}, {$set: {title:title}});
+function setDocumentTitle(context, title){
+    var _id = context._id;
+    if (context && context.title) {
+        Documents.update(_id, {
+        $set: {title: title}
+      });
     }
 }
 
-/**
- * Sets the key of 'content' to a given value.
- * @param {String} content Desired content.
- */
-function setCurrentDocumentContent( content ) {
-    var currentDocument = getCurrentDocument();
-    if (currentDocument) {
-        Documents.update({_id: Session.get('currentDocument')}, {$set: {content:content}});
+function setDocumentContent(context, content){
+    var _id = context._id;
+    if (context && context.content) {
+        Documents.update(_id, {
+        $set: {content: content}
+      });
     }
 }

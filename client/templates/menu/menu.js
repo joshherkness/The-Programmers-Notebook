@@ -13,7 +13,6 @@ Template.menu.helpers({
 
 Template.menu.events({
     "click .btn-create": function(event) {
-
         event.preventDefault();
 
         // Get the current date
@@ -21,19 +20,26 @@ Template.menu.events({
 
         // Insert a file into the collection
         Documents.insert({
-            title: currentDate.getTime(),
+            title: "Untitled",
             content: currentDate.toString(),
-            createdAt: new Date()
+            createdAt: currentDate
         });
     }
 });
 
 Template.file.events({
 
-    "click": function() {
+    "click": function(event, template) {
         Session.set('currentDocument', this._id);
+        Router.go('editor.selected', {_id: this._id});
     },
-    "click .destroy": function() {
+    "click .destroy": function(event, template) {
+
+        var context = template.data;
+        if (context._id == this._id) {
+            Session.set('currentDocument', undefined);
+            Router.go('editor.empty');
+        }
         Documents.remove(this._id);
     }
 
