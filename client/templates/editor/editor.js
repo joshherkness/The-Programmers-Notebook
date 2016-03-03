@@ -23,10 +23,28 @@ Template.editor.onRendered(function () {
         showFoldWidgets: false
     });
 
-    this.autorun( function () {
+    this.autorun(function () {
         var context = Template.currentData();
+
         if (context && context.content) {
-            editor.setValue(context.content);
+            editor.getSession().on('change', function(e) {
+                // If the vahnge function was not triggered by the system.
+                if (silent) {
+                    return;
+                }
+                // Update the document's content
+                setDocumentContent(context, editor.getValue());
+            });
+        }
+    });
+
+    this.autorun( function (e ) {
+        var context = Template.currentData();
+
+        if (context && context.content) {
+            silent = true;
+            editor.getSession().setValue(context.content);
+            silent = false;
         }
     }.bind(this));
 });
@@ -55,6 +73,15 @@ function setDocumentTitle(context, title){
     if (context && context.title) {
         Documents.update(_id, {
         $set: {title: title}
+      });
+    }
+}
+
+function setDocumentContent(context, content){
+    var _id = context._id;
+    if (context && context.content) {
+        Documents.update(_id, {
+        $set: {content: content}
       });
     }
 }

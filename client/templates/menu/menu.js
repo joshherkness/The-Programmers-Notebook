@@ -13,7 +13,6 @@ Template.menu.helpers({
 
 Template.menu.events({
     "click .btn-create": function(event) {
-
         event.preventDefault();
 
         // Get the current date
@@ -21,9 +20,9 @@ Template.menu.events({
 
         // Insert a file into the collection
         Documents.insert({
-            title: currentDate.getTime(),
+            title: "Untitled",
             content: currentDate.toString(),
-            createdAt: new Date()
+            createdAt: currentDate
         });
     }
 });
