@@ -38,4 +38,16 @@ Meteor.startup( function () {
      ace.config.set("workerPath", "/packages/mrt_ace-embed/ace");
      ace.config.set("basePath", "/packages/mrt_ace-embed/ace");
 
+     // Configure the markdown parser
+     marked.setOptions({
+         renderer: new marked.Renderer(),
+         gfm: true,
+         tables: true,
+         breaks: false,
+         pedantic: false,
+         sanitize: true,
+         smartLists: true,
+         smartypants: false
+     });
+
 });

@@ -1,6 +1,11 @@
 // editor.js
 
+// Ace editor object
 var editor;
+// Used by ace editor
+var EditSession = require("ace/edit_session").EditSession;
+
+var currentBuffer = new Buffer(undefined);
 
 Template.editor.onRendered(function () {
 
@@ -23,30 +28,25 @@ Template.editor.onRendered(function () {
         showFoldWidgets: false
     });
 
-    this.autorun(function () {
+    //Function auto runs when content variables change
+    this.autorun(function(){
+
         var context = Template.currentData();
 
         if (context && context.content) {
-            editor.getSession().on('change', function(e) {
-                // If the vahnge function was not triggered by the system.
-                if (silent) {
-                    return;
-                }
-                // Update the document's content
-                setDocumentContent(context, editor.getValue());
-            });
+            if (currentBuffer._id == context._id) {
+                return;
+            } else {
+                currentBuffer = new Buffer(context._id);
+                var editSession = new EditSession(context.content);
+                editor.setSession(editSession);
+                editor.getSession().on('change', function (e) {
+                    console.log(currentBuffer);
+                    setDocumentContent(context, editor.getValue());
+                });
+            }
         }
     });
-
-    this.autorun( function (e ) {
-        var context = Template.currentData();
-
-        if (context && context.content) {
-            silent = true;
-            editor.getSession().setValue(context.content);
-            silent = false;
-        }
-    }.bind(this));
 });
 
 Template.editor.events({
@@ -84,4 +84,9 @@ function setDocumentContent(context, content){
         $set: {content: content}
       });
     }
+}
+
+
+function Buffer(id) {
+  this._id = id;
 }
