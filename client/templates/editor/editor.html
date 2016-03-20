@@ -1,5 +1,9 @@
 <!-- editor.html -->
 
+<head>
+    <script src="http://cdn.ckeditor.com/4.5.7/standard-all/ckeditor.js"></script>
+</head>
+
 <template name="editor">
     <div class="editor">
         <div class="editor-header">
@@ -10,34 +14,41 @@
                 <input class="editor-header-textarea" type="text" name="text" id="title" placeholder="title" value="{{ title }}">
 
             </form>
-            <a href="" class="editor-header-button">
+            <a href="" class="editor-header-button" id="bold">
                 <i class="material-icons">format_bold</i>
             </a>
-            <a href="" class="editor-header-button">
+            <a href="" class="editor-header-button" id="italic">
                 <i class="material-icons">format_italic</i>
             </a>
-            <a href="" class="editor-header-button">
+            <a href="" class="editor-header-button" id="code">
                 <i class="material-icons">code</i>
             </a>
-            <a href="" class="editor-header-button">
+            <a href="" class="editor-header-button" id="link">
                 <i class="material-icons">link</i>
             </a>
-            <a href="" class="editor-header-button">
+            <a href="" class="editor-header-button" id="image">
                 <i class="material-icons">image</i>
             </a>
-            <a href="" class="editor-header-button">
+            <a href="" class="editor-header-button" id="format">
                 <i class="material-icons">text_format</i>
             </a>
-            <a href="" class="editor-header-button right">
+            <a href="" class="editor-header-button right" id="more">
                 <i class="material-icons">more_horiz</i>
             </a>
             <div class="editor-header-segment-control right">
-                <a href="" class="segment-control-option selected">Markdown</a>
-                <a href="" class="segment-control-option">Preview</a>
+                <a href="" class="segment-control-option selected" id="toggle-markdown">Markdown</a>
+                <a href="" class="segment-control-option" id="toggle-preview">Preview</a>
             </div>
         </div>
-        <!-- Temp placeholder for text editors -->
-        <div id="editor" class="editor-content"></div>
 
+        <!-- Temp placeholder for text editors -->
+        <div id="editor" class="editor-content" style={{#unless isMarkdown}}"visibility: hidden;"{{/unless}}></div>
+
+        <!--<div id="preview" class="editor-content" style={{#unless isPreview}}"visibility: hidden;"{{/unless}}>
+            {{{previewContent}}}
+        </div>-->
+        <div id="ckeditor" class="editor-content" style={{#unless isPreview}}"visibility: hidden;"{{/unless}}>
+            <h1>Hello</h1>
+        </div>
     </div>
 </template>
