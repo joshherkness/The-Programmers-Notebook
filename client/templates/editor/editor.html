@@ -36,18 +36,15 @@
                 <i class="material-icons">more_horiz</i>
             </a>
             <div class="editor-header-segment-control right">
-                <a href="" class="segment-control-option selected" id="toggle-markdown">Markdown</a>
-                <a href="" class="segment-control-option" id="toggle-preview">Preview</a>
+                <a href="" class="segment-control-option {{#if isMarkdown}}selected{{/if}}" id="md">Markdown</a>
+                <a href="" class="segment-control-option {{#if isRichText}}selected{{/if}}" id="rt">Rich</a>
             </div>
         </div>
 
         <!-- Temp placeholder for text editors -->
-        <div id="editor" class="editor-content" style={{#unless isMarkdown}}"visibility: hidden;"{{/unless}}></div>
+        <div id="md-editor" class="editor-content" style={{#unless isMarkdown}}"visibility: hidden;"{{/unless}}></div>
 
-        <!--<div id="preview" class="editor-content" style={{#unless isPreview}}"visibility: hidden;"{{/unless}}>
-            {{{previewContent}}}
-        </div>-->
-        <div id="ckeditor" class="editor-content" style={{#unless isPreview}}"visibility: hidden;"{{/unless}}>
+        <div id="rt-editor" class="editor-content" style={{#unless isRichText}}"visibility: hidden;"{{/unless}}>
             <h1>Hello</h1>
         </div>
     </div>
