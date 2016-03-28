@@ -14,6 +14,7 @@
     bottom: 0;
     left: $side-menu-width;
     right: 0;
+    background-color: $editor-header-background-color;
 
     -webkit-transition: all 0.2s ease 0s; /* Safari */
     transition: all 0.2s ease 0s;

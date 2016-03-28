@@ -1,6 +1,7 @@
 <!-- editor.html -->
 
 <head>
+    <script src="/js/src-noconflict/ace.js" type="text/javascript" charset="utf-8"></script>
     <script src="http://cdn.ckeditor.com/4.5.7/standard-all/ckeditor.js"></script>
     <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.2.0/styles/default.min.css">
     <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.2.0/highlight.min.js"></script>
@@ -9,46 +10,68 @@
 <template name="editor">
     <div class="editor">
         <div class="editor-header">
-            <a href="" id="menu-toggle" class="editor-header-button">
+            <a href="" id="menu-toggle" class="editor-header-button" title="Toggle Menu">
                 <i class="material-icons">menu</i>
             </a>
             <form id="title-form">
                 <input class="editor-header-textarea" type="text" name="text" id="title" placeholder="title" value="{{ title }}">
 
             </form>
-            <a href="" class="editor-header-button" id="bold">
+            <a href="" class="editor-header-button" id="bold" title="Bold">
                 <i class="material-icons">format_bold</i>
             </a>
-            <a href="" class="editor-header-button" id="italic">
+            <a href="" class="editor-header-button" id="italic" title="Italic">
                 <i class="material-icons">format_italic</i>
             </a>
+            <!--
             <a href="" class="editor-header-button" id="strike">
                 <i class="material-icons">strikethrough_s</i>
             </a>
-            <a href="" class="editor-header-button" id="code">
+            -->
+            <a href="" class="editor-header-button" id="code" title="Code">
                 <i class="material-icons">code</i>
             </a>
-            <a href="" class="editor-header-button" id="link">
+            <div class="editor-header-segment-control">
+                <a href="" class="segment-control-option" id="h1" title="Header 1">
+                    <i class="mdi mdi-format-header-1"></i>
+                </a>
+                <a href="" class="segment-control-option" id="h2" title="Header 2">
+                    <i class="mdi mdi-format-header-2"></i>
+                </a>
+                <a href="" class="segment-control-option" id="h2" title="Header 3">
+                    <i class="mdi mdi-format-header-3"></i>
+                </a>
+            </div>
+            <div class="editor-header-segment-control">
+                <a href="" class="segment-control-option" id="bulleted-list" title="Bulleted List">
+                    <i class="material-icons">format_list_bulleted</i>
+                </a>
+                <a href="" class="segment-control-option" id="numbered-list" title="Numbered List">
+                    <i class="material-icons">format_list_numbered</i>
+                </a>
+            </div>
+            <a href="" class="editor-header-button" id="blockquote" title="Blockquote">
+                <i class="material-icons">format_quote</i>
+            </a>
+            <a href="" class="editor-header-button" id="link" title="Link">
                 <i class="material-icons">link</i>
             </a>
-            <a href="" class="editor-header-button" id="image">
+            <a href="" class="editor-header-button" id="image" title="Image">
                 <i class="material-icons">image</i>
             </a>
-            <a href="" class="editor-header-button" id="clear">
+            <a href="" class="editor-header-button" id="clear" title="Clear Formating">
                 <i class="material-icons">format_clear</i>
             </a>
-            <a href="" class="editor-header-button" id="bulleted-list">
-                <i class="material-icons">format_list_bulleted</i>
-            </a>
-            <a href="" class="editor-header-button" id="numbered-list">
-                <i class="material-icons">format_list_numbered</i>
-            </a>
-            <a href="" class="editor-header-button right" id="more">
+            <a href="" class="editor-header-button right" id="more" title="More">
                 <i class="material-icons">more_horiz</i>
             </a>
             <div class="editor-header-segment-control right">
-                <a href="" class="segment-control-option {{#if isMarkdown}}selected{{/if}}" id="md">Markdown</a>
-                <a href="" class="segment-control-option {{#if isRichText}}selected{{/if}}" id="rt">Rich</a>
+                <a href="" class="segment-control-option {{#if isMarkdown}}selected{{/if}}" id="md" title="Markdown">
+                    <i class="mdi mdi-sword"></i>
+                </a>
+                <a href="" class="segment-control-option {{#if isRichText}}selected{{/if}}" id="rt" title="Rich Text">
+                    <i class="mdi mdi-shield-outline"></i>
+                </a>
             </div>
         </div>
 

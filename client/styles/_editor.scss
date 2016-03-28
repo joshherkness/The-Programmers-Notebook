@@ -23,6 +23,8 @@
         left: 0;
         height: $editor-header-height;
         overflow-x: hidden;
+        padding: 0 6px;
+        font-size: 0;
 
         .right {
             float: right;
@@ -37,8 +39,9 @@
             background-color: $editor-header-item-background-color;
 
             // Style
-            margin: calc(#{$editor-header-height - $editor-header-item-height} / 2) 5px;
+            margin: calc(#{$editor-header-height - $editor-header-item-height} / 2) 3px;
             display:inline-block;
+            position: relative;
             width:$editor-header-item-height;
             height:$editor-header-item-height;
             border-radius:50%;
@@ -66,7 +69,7 @@
 
         .editor-header-segment-control {
 
-            display: block;
+            display: inline-block;
             // Fix to remove spacing between items
             font-size: 0;
 
@@ -76,7 +79,7 @@
 
                 // Style
                 font-size:12px;
-                padding: 0 calc(#{$editor-header-item-height} / 2);
+                padding: 0 calc(#{$editor-header-item-height} / 4);
                 width: auto;
                 border-radius: 0;
 
@@ -86,17 +89,29 @@
 
                 &:hover {
                     text-decoration: none;
+                    color: $editor-header-item-tint-color;
+                }
+
+                &:not(:first-child, :last-child) {
+                    margin-left: 0;
+                    margin-right: 0;
+                }
+
+                &:not(:first-child) {
+                    border-left: 0;
                 }
 
                 &:first-child {
                     border-top-left-radius: calc(#{$editor-header-item-height} / 2);
                     border-bottom-left-radius: calc(#{$editor-header-item-height} / 2);
+                    padding-left: calc(#{$editor-header-item-height} / 2);
                     margin-right: 0;
                 }
 
                 &:last-child {
                     border-top-right-radius: calc(#{$editor-header-item-height} / 2);
                     border-bottom-right-radius: calc(#{$editor-header-item-height} / 2);
+                    padding-right: calc(#{$editor-header-item-height} / 2);
                     margin-left: 0;
 
                 }
@@ -111,10 +126,10 @@
 
             @extend .editor-header-item;
             font-size: 12px;
-            padding: calc(#{$editor-header-item-height} / 2 - 12px) calc(#{$editor-header-item-height} /2) 0 calc(#{$editor-header-item-height} /2); // Hack to help vertically center text in textarea
+            padding: calc(#{$editor-header-item-height} / 2 - 15px) calc(#{$editor-header-item-height} /2) 0 calc(#{$editor-header-item-height} /2); // Hack to help vertically center text in textarea
             line-height: 12px;
             border-radius: calc(#{$editor-header-item-height} / 2);
-            width: 200px;
+            width: 150px;
             resize: none;
             text-align: left;
             overflow-x: scroll;

@@ -31,13 +31,6 @@ Meteor.startup( function () {
         s.parentNode.insertBefore(wf, s);
     })();
 
-
-     // Configure paths for mtr-ace-embed plugin
-     ace.config.set("modePath", "/packages/mrt_ace-embed/ace");
-     ace.config.set("themePath", "/packages/mrt_ace-embed/ace");
-     ace.config.set("workerPath", "/packages/mrt_ace-embed/ace");
-     ace.config.set("basePath", "/packages/mrt_ace-embed/ace");
-
      // Configure the markdown parser
      marked.setOptions({
          renderer: new marked.Renderer(),

@@ -4,9 +4,6 @@
  * @author Joshua Herkness
  */
 
-// Create an instance of Edit Session to be used by the ace editor.
-EditSession = require("ace/edit_session").EditSession;
-
 /**
  * Template function called when each instance of the template is rendered.
  * Note: This method is not called very often.
@@ -80,7 +77,6 @@ Template.editor.onRendered(function () {
 		}
 
     }.bind(this));
-
 });
 
 /**
@@ -144,8 +140,12 @@ Template.editor.events({
     },
     'click #more' : function(event, template) {
         console.log("More");
-		var renderer = new marked.Renderer();
-		console.log(renderer);
+		var editManager = Template.instance().editManager;
+		var cursor = editManager.mdEditor.selection.getCursor();
+		console.log(cursor);
+		var token = editManager.mdEditor.getSession().getTokenAt(cursor.row, cursor.column);
+		console.log(token);
+
     },
     'click #md' : function(event, template) {
 		var editManager = template.editManager;
@@ -258,8 +258,7 @@ function EditManager() {
 			this.context = context;
 
 			// Load into mdEditor
-			var editSession = new EditSession(context.content);
-			editSession.setUndoMAnager(new ace.UndoManager());
+			var editSession = ace.createEditSession(context.content, 'ace/mode/markdown');
 			this.mdEditor.setSession(editSession);
 			this.mdEditor.getSession().setMode("ace/mode/markdown");
 			this.mdEditor.getSession().on('change', function (err) {
