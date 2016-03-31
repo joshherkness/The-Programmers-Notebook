@@ -3,7 +3,6 @@
 <head>
     <script src="/js/src-noconflict/ace.js" type="text/javascript" charset="utf-8"></script>
     <script src="http://cdn.ckeditor.com/4.5.7/standard-all/ckeditor.js"></script>
-    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.2.0/styles/default.min.css">
     <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.2.0/highlight.min.js"></script>
 </head>
 
@@ -14,7 +13,7 @@
                 <i class="material-icons">menu</i>
             </a>
             <form id="title-form">
-                <input class="editor-header-textarea" type="text" name="text" id="title" placeholder="title" value="{{ title }}">
+                <input class="editor-header-textarea" type="text" name="text" id="title" placeholder="Title" value="{{ title }}">
 
             </form>
             <a href="" class="editor-header-button" id="bold" title="Bold">
@@ -32,13 +31,13 @@
                 <i class="material-icons">code</i>
             </a>
             <div class="editor-header-segment-control">
-                <a href="" class="segment-control-option" id="h1" title="Header 1">
+                <a href="" class="segment-control-option" id="h1" title="Heading 1">
                     <i class="mdi mdi-format-header-1"></i>
                 </a>
-                <a href="" class="segment-control-option" id="h2" title="Header 2">
+                <a href="" class="segment-control-option" id="h2" title="Heading 2">
                     <i class="mdi mdi-format-header-2"></i>
                 </a>
-                <a href="" class="segment-control-option" id="h2" title="Header 3">
+                <a href="" class="segment-control-option" id="h3" title="Heading 3">
                     <i class="mdi mdi-format-header-3"></i>
                 </a>
             </div>
@@ -78,7 +77,7 @@
         <!-- Temp placeholder for text editors -->
         <div id="md-editor" class="editor-content" style={{#unless isMarkdown}}"visibility: hidden;"{{/unless}}></div>
 
-        <div id="rt-editor" class="editor-content" style={{#unless isRichText}}"visibility: hidden;"{{/unless}}>
+        <div id="rt-editor" class="editor-content narrow" style={{#unless isRichText}}"visibility: hidden;"{{/unless}}>
             <h1>Hello</h1>
         </div>
     </div>

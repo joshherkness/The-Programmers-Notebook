@@ -32,7 +32,7 @@ Template.editor.onRendered(function () {
     // Create and configure the rich text editor
 	CKEDITOR.inline( 'rt-editor', {
 		// Allow some non-standard markup that we used in the introduction.
-		extraAllowedContent: 'h1;strong;em;ua(documentation);abbr[title];pre(*);code(*);blockquote;span(*);a[href];ol;ul;li;u;s;img(*)[*]',
+		extraAllowedContent: 'h1;h2;h3;h4;h5;h6;hr;strong;em;ua(documentation);abbr[title];pre(*);code(*);blockquote;span(*);a[href];ol;ul;li;u;s;img(*)[*]',
 		removePlugins: 'contextmenu,tabletools,toolbar',
 		extraPlugins: 'sourcedialog',
 		format_tags: 'p;h1;h2;h3;h4;h5;h6;pre;address;div',
@@ -60,6 +60,7 @@ Template.editor.onRendered(function () {
         wrap: true,
         showFoldWidgets: false
     });
+	mdEditor.$blockScrolling = Infinity;
 
 	// Create and configure the edit manager
     this.editManager = new EditManager();
@@ -77,6 +78,11 @@ Template.editor.onRendered(function () {
 		}
 
     }.bind(this));
+
+	// $( ".menu-footer" ).on( "click", function() {
+	//		this.editManager.bold();
+	// }.bind(this));
+
 });
 
 /**
@@ -102,10 +108,20 @@ Template.editor.events({
 		var editManager = template.editManager;
 		editManager.italic();
     },
-    'click #strike' : function(event, template) {
+    'click #h1' : function(event, template) {
 
 		var editManager = template.editManager;
-		editManager.strike();
+		editManager.heading(1);
+    },
+    'click #h2' : function(event, template) {
+
+		var editManager = template.editManager;
+		editManager.heading(2);
+    },
+    'click #h3' : function(event, template) {
+
+		var editManager = template.editManager;
+		editManager.heading(3);
     },
     'click #code' : function(event, template) {
         console.log("Code");
@@ -259,6 +275,7 @@ function EditManager() {
 
 			// Load into mdEditor
 			var editSession = ace.createEditSession(context.content, 'ace/mode/markdown');
+			editSession.setUseWrapMode(true);
 			this.mdEditor.setSession(editSession);
 			this.mdEditor.getSession().setMode("ace/mode/markdown");
 			this.mdEditor.getSession().on('change', function (err) {
@@ -268,6 +285,7 @@ function EditManager() {
 			// Load into rtEditor
 			this.rtEditor.setData(marked(context.content));
 			this.rtEditor.on('change', function(err) {
+				console.log("Change!");
 				this.save();
 			}.bind(this));
 		} else if (this.context != context){
@@ -443,6 +461,21 @@ function EditManager() {
 				console.log('Unable to add link...');
 		}
 	};
+
+	this.heading = function (level) {
+		switch (this.mode.get()) {
+			case ModeEnum.MD:
+				surround(this.mdEditor, '[','](http://)');
+				break;
+			case ModeEnum.RT:
+			console.log(this.rtEditor);
+				var style = new CKEDITOR.style({element: "h"+level});
+				toggleStyle(this.rtEditor, style);
+				break;
+			default:
+				console.log('Unable to add header...');
+		}
+	};
 }
 
 function surround(mdEditor, startText, endText) {
@@ -455,4 +488,13 @@ function surround(mdEditor, startText, endText) {
 		mdEditor.moveCursorTo(cursor.row, cursor.column + startText.length);
 		mdEditor.focus();
 	}
+}
+
+function toggleStyle(rtEditor, style) {
+	if (style.checkActive(rtEditor.elementPath(), rtEditor)) {
+		rtEditor.removeStyle(style);
+	} else {
+		rtEditor.applyStyle(style);
+	}
+	rtEditor.fire( 'saveSnapshot' );
 }

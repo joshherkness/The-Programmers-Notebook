@@ -125,9 +125,9 @@
         input.editor-header-textarea {
 
             @extend .editor-header-item;
-            font-size: 12px;
+            font-size: 14px;
             padding: calc(#{$editor-header-item-height} / 2 - 15px) calc(#{$editor-header-item-height} /2) 0 calc(#{$editor-header-item-height} /2); // Hack to help vertically center text in textarea
-            line-height: 12px;
+            line-height: 14px;
             border-radius: calc(#{$editor-header-item-height} / 2);
             width: 150px;
             resize: none;
@@ -150,6 +150,7 @@
         right: 0;
         left: 0;
         overflow-y: scroll;
+        outline: 0px;
     }
 
     .ace_editor {
