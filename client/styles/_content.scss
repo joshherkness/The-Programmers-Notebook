@@ -33,7 +33,7 @@ $font-stack-code: Consolas, "Liberation Mono", Menlo, Courier, monospace;
     }
 
     hr {
-      margin: 0 30% 40px 30%;
+      margin: 40px 30% 40px 30%;
       border-bottom: 5px solid $mountain-meadow-color;
     }
 
@@ -71,55 +71,8 @@ $font-stack-code: Consolas, "Liberation Mono", Menlo, Courier, monospace;
       margin-left: 0;
     }
 
-    code {
-      font-family: Consolas, "Liberation Mono", Menlo, Courier, monospace;
-      font-size: 12px;
-    }
-
-    pre {
-      margin-top: 0;
-      margin-bottom: 0;
-      font: 12px Consolas, "Liberation Mono", Menlo, Courier, monospace;
-    }
-
     .select::-ms-expand {
       opacity: 0;
-    }
-
-    .octicon {
-      font: normal normal normal 16px/1 octicons-link;
-      display: inline-block;
-      text-decoration: none;
-      text-rendering: auto;
-      -webkit-font-smoothing: antialiased;
-      -moz-osx-font-smoothing: grayscale;
-      -webkit-user-select: none;
-      -moz-user-select: none;
-      -ms-user-select: none;
-      user-select: none;
-    }
-
-    .octicon-link:before {
-      content: '\f05c';
-    }
-
-    .markdown-body:before {
-      display: table;
-      content: "";
-    }
-
-    .markdown-body:after {
-      display: table;
-      clear: both;
-      content: "";
-    }
-
-    .markdown-body>*:first-child {
-      margin-top: 0 !important;
-    }
-
-    .markdown-body>*:last-child {
-      margin-bottom: 0 !important;
     }
 
     a:not([href]) {

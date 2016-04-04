@@ -32,11 +32,10 @@ Template.editor.onRendered(function () {
     // Create and configure the rich text editor
 	CKEDITOR.inline( 'rt-editor', {
 		// Allow some non-standard markup that we used in the introduction.
-		extraAllowedContent: 'h1;h2;h3;h4;h5;h6;hr;strong;em;ua(documentation);abbr[title];pre(*);code(*);blockquote;span(*);a[href];ol;ul;li;u;s;img(*)[*]',
+		extraAllowedContent: 'h1;h2;h3;h4;h5;h6;hr;strong;em;ua(documentation);abbr[title];pre;code[*];blockquote;span(*);a[href];ol;ul;li;u;s;img(*)[*]',
 		removePlugins: 'contextmenu,tabletools,toolbar',
 		extraPlugins: 'sourcedialog',
-		format_tags: 'p;h1;h2;h3;h4;h5;h6;pre;address;div',
-		removeButtons: ''
+		format_tags: 'p;h1;h2;h3;h4;h5;h6;pre;address;div'
 	});
 
     // Retrieve the CKEditor instance and save it
@@ -148,6 +147,11 @@ Template.editor.events({
         console.log("Numbered List");
 		var editManager = Template.instance().editManager;
 		editManager.numberedList();
+    },
+    'click #blockquote' : function(event, template) {
+        console.log("Blockquote");
+		var editManager = Template.instance().editManager;
+		editManager.blockquote();
     },
     'click #clear' : function(event, template) {
         console.log("Clear");
@@ -334,17 +338,16 @@ function EditManager() {
 	 * Bolds the selection within the current mode.
 	 */
 	this.bold = function () {
-		switch (this.mode.get()) {
-			case ModeEnum.MD:
-				surround(this.mdEditor, '**', '**');
-				break;
-			case ModeEnum.RT:
-				// Apply command
-				this.rtEditor.execCommand('bold');
-				break;
-			default:
-				console.error('Unable to bold...');
-		}
+
+		var mdFunction = function () {
+			surround(this.mdEditor, '**', '**');
+		}.bind(this);
+
+		var rtFunction = function () {
+			this.rtEditor.execCommand('bold');
+		}.bind(this);
+
+		executeFunctionOnMode(this.mode.get(), mdFunction, rtFunction);
 
 	};
 
@@ -352,128 +355,176 @@ function EditManager() {
 	 * Italicise seleciton withing the current mode.
 	 */
 	this.italic = function () {
-		switch (this.mode.get()) {
-			case ModeEnum.MD:
-				surround(this.mdEditor, '*', '*');
-				break;
-			case ModeEnum.RT:
-				// Apply command
-				this.rtEditor.execCommand('italic');
-				break;
-			default:
-				console.error('Unable to italic...');
-		}
+
+		var mdFunction = function () {
+			surround(this.mdEditor, '*', '*');
+		}.bind(this);
+
+		var rtFunction = function () {
+			this.rtEditor.execCommand('italic');
+		}.bind(this);
+
+		executeFunctionOnMode(this.mode.get(), mdFunction, rtFunction);
+
 
 	};
 
 	this.clearFormat = function () {
-		switch (this.mode.get()) {
-			case ModeEnum.MD:
 
-				break;
-			case ModeEnum.RT:
-				this.rtEditor.execCommand('removeFormat');
-				break;
-			default:
-				console.log('Unable to clear formating...');
-		}
+		var mdFunction = function () {
+			surround(this.mdEditor, '* ', '');
+		}.bind(this);
+
+		var rtFunction = function () {
+			this.rtEditor.execCommand('removeFormat');
+		}.bind(this);
+
+		executeFunctionOnMode(this.mode.get(), mdFunction, rtFunction);
+
 	};
 
 	this.codeBlock = function () {
-		switch (this.mode.get()) {
-			case ModeEnum.MD:
-				break;
-			case ModeEnum.RT:
-				var style = new CKEDITOR.style({element: 'pre'});
-				console.log(style.checkActive(this.rtEditor.elementPath(), this.rtEditor));
-				if (style.checkActive(this.rtEditor.elementPath(), this.rtEditor)) {
-					this.rtEditor.removeStyle(style);
-				} else {
-					this.rtEditor.applyStyle(style);
-				}
-				break;
-			default:
-				console.log('Unable to apply code block style...');
-		}
+
+		var mdFunction = function () {
+			surround(this.mdEditor, '```\n', '\n```');
+		}.bind(this);
+
+		var rtFunction = function () {
+			var preStyle = new CKEDITOR.style({element: 'pre', type: CKEDITOR.STYLE_BLOCK});
+			var codeStyle = new CKEDITOR.style({element: 'code', type: CKEDITOR.STYLE_BLOCK});
+
+			if (preStyle.checkActive(this.rtEditor.elementPath(), this.rtEditor) | codeStyle.checkActive(this.rtEditor.elementPath(), this.rtEditor)) {
+				this.rtEditor.removeStyle(preStyle);
+				this.rtEditor.execCommand('removeFormat');
+			} else {
+				elem = this.rtEditor.getSelectedHtml();
+	    		this.rtEditor.insertHtml( '<pre><code>'+this.rtEditor.getSelectedHtml(true)+'</code></pre>' );
+				//this.rtEditor.applyStyle(preStyle);
+				//this.rtEditor.applyStyle(codeStyle);
+			}
+		}.bind(this);
+
+		executeFunctionOnMode(this.mode.get(), mdFunction, rtFunction);
+
 	};
 
 	this.bulletedList = function () {
-		switch (this.mode.get()) {
-			case ModeEnum.MD:
-				surround(this.mdEditor, '* ', '');
-				break;
-			case ModeEnum.RT:
-				this.rtEditor.execCommand('bulletedlist');
-				break;
-			default:
-				console.log('Unable to apply bullet list...');
-		}
+
+		var mdFunction = function () {
+			surround(this.mdEditor, '* ', '');
+		}.bind(this);
+
+		var rtFunction = function () {
+			this.rtEditor.execCommand('bulletedlist');
+		}.bind(this);
+
+		executeFunctionOnMode(this.mode.get(), mdFunction, rtFunction);
+
 	};
 
 	this.numberedList = function () {
-		switch (this.mode.get()) {
-			case ModeEnum.MD:
-				break;
-			case ModeEnum.RT:
-				this.rtEditor.execCommand('numberedlist');
-				break;
-			default:
-				console.log('Unable to apply numbered list...');
-		}
+
+		var mdFunction = function () {
+			surround(this.mdEditor, '1. ', '');
+		}.bind(this);
+
+		var rtFunction = function () {
+			this.rtEditor.execCommand('numberedlist');
+		}.bind(this);
+
+		executeFunctionOnMode(this.mode.get(), mdFunction, rtFunction);
+
 	};
 
 	this.strike = function () {
-		switch (this.mode.get()) {
-			case ModeEnum.MD:
-				surround(this.mdEditor, '~~', '~~');
-				break;
-			case ModeEnum.RT:
-				this.rtEditor.execCommand('strike');
-				break;
-			default:
-				console.log('Unable to strike...');
-		}
+
+		var mdFunction = function () {
+			surround(this.mdEditor, '~~', '~~');
+		}.bind(this);
+
+		var rtFunction = function () {
+			this.rtEditor.execCommand('strike');
+		}.bind(this);
+
+		executeFunctionOnMode(this.mode.get(), mdFunction, rtFunction);
+
 	};
 
 	this.image = function () {
-		switch (this.mode.get()) {
-			case ModeEnum.MD:
-				surround(this.mdEditor, '![', '](http://)');
-				break;
-			case ModeEnum.RT:
-				this.rtEditor.execCommand('image');
-				break;
-			default:
-				console.log('Unable to add image...');
 
-		}
+		var mdFunction = function () {
+			surround(this.mdEditor, '![', '](http://)');
+		}.bind(this);
+
+		var rtFunction = function () {
+			this.rtEditor.execCommand('image');
+		}.bind(this);
+
+		executeFunctionOnMode(this.mode.get(), mdFunction, rtFunction);
+
 	};
 
 	this.link = function () {
-		switch (this.mode.get()) {
-			case ModeEnum.MD:
-				surround(this.mdEditor, '[','](http://)');
-				break;
-			case ModeEnum.RT:
-				this.rtEditor.execCommand('link');
-				break;
-			default:
-				console.log('Unable to add link...');
-		}
+
+		var mdFunction = function () {
+			surround(this.mdEditor, '[','](http://)');
+		}.bind(this);
+
+		var rtFunction = function () {
+			this.rtEditor.execCommand('link');
+		}.bind(this);
+
+		executeFunctionOnMode(this.mode.get(), mdFunction, rtFunction);
+
 	};
 
 	this.heading = function (level) {
-		switch (this.mode.get()) {
-			case ModeEnum.MD:
-				surround(this.mdEditor, '[','](http://)');
+
+		var mdFunction = function () {
+			surround(this.mdEditor, '#'.repeat(level) + ' ','');
+		}.bind(this);
+
+		var rtFunction = function () {
+			var style = new CKEDITOR.style({element: "h"+level});
+			toggleStyle(this.rtEditor, style);
+		}.bind(this);
+
+		executeFunctionOnMode(this.mode.get(), mdFunction, rtFunction);
+
+	};
+
+	this.blockquote = function () {
+
+		var mdFunction = function () {
+			surround(this.mdEditor, '> ','');
+		}.bind(this);
+
+		var rtFunction = function () {
+			this.rtEditor.execCommand('blockquote');
+		}.bind(this);
+
+		executeFunctionOnMode(this.mode.get(), mdFunction, rtFunction);
+
+	};
+
+	var executeFunctionOnMode = function (mode, mdFunction, rtFunction) {
+		switch (mode){
+			case ModeEnum.MD :
+				try {
+					mdFunction();
+				} catch (e) {
+					console.error(e);
+				}
 				break;
-			case ModeEnum.RT:
-			console.log(this.rtEditor);
-				var style = new CKEDITOR.style({element: "h"+level});
-				toggleStyle(this.rtEditor, style);
+			case ModeEnum.RT :
+				try {
+					rtFunction();
+				} catch (e) {
+					console.error(e);
+				}
 				break;
 			default:
-				console.log('Unable to add header...');
+				console.error('Please use a valid mode!');
 		}
 	};
 }
