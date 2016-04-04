@@ -21,6 +21,5 @@ iron:router
 fourseven:scss
 reactive-var
 reactive-dict
-mrt:ace-embed
 seba:minifiers-autoprefixer
 reywood:bootstrap3-sass
