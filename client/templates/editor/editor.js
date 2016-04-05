@@ -174,7 +174,17 @@ Template.editor.events({
     'click #rt' : function(event, template) {
 		var editManager = template.editManager;
 		editManager.setMode(ModeEnum.RT);
-    }
+    },
+
+    'click .export-data': function( event, template ) {
+    $( event.target ).button( '...' );
+
+    var boo = new Blob([this.content]);
+    let fileName = this.title + ".md";
+    saveAs( boo, fileName );
+
+    $( event.target ).button( 'reset' );
+  }
 });
 
 /**
