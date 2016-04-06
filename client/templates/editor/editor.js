@@ -123,49 +123,49 @@ Template.editor.events({
 		editManager.heading(3);
     },
     'click #code' : function(event, template) {
-        console.log("Code");
+
 		var editManager = Template.instance().editManager;
-		console.log(editManager.rtEditor);
 		editManager.codeBlock();
     },
     'click #link' : function(event, template) {
-        console.log("Link");
+
 		var editManager = Template.instance().editManager;
 		editManager.link();
     },
     'click #image' : function(event, template) {
-        console.log("Image");
+
 		var editManager = Template.instance().editManager;
 		editManager.image();
     },
     'click #bulleted-list' : function(event, template) {
-        console.log("Bulleted List");
+
 		var editManager = Template.instance().editManager;
 		editManager.bulletedList();
     },
     'click #numbered-list' : function(event, template) {
-        console.log("Numbered List");
+
 		var editManager = Template.instance().editManager;
 		editManager.numberedList();
     },
     'click #blockquote' : function(event, template) {
-        console.log("Blockquote");
+
 		var editManager = Template.instance().editManager;
 		editManager.blockquote();
     },
     'click #clear' : function(event, template) {
-        console.log("Clear");
+
 		var editManager = Template.instance().editManager;
 		editManager.clearFormat();
     },
-    'click #more' : function(event, template) {
-        console.log("More");
-		var editManager = Template.instance().editManager;
-		var cursor = editManager.mdEditor.selection.getCursor();
-		console.log(cursor);
-		var token = editManager.mdEditor.getSession().getTokenAt(cursor.row, cursor.column);
-		console.log(token);
+    'click #export' : function(event, template) {
 
+		if (this && this.content) {
+			var exportContent = new Blob([this.content], {type: "application/octet-stream"});
+		    var exportFileName = this.title + ".md";
+		    saveAs( exportContent, exportFileName );
+		} else {
+			alert('You must select a document to download!');
+		}
     },
     'click #md' : function(event, template) {
 		var editManager = template.editManager;
@@ -174,17 +174,7 @@ Template.editor.events({
     'click #rt' : function(event, template) {
 		var editManager = template.editManager;
 		editManager.setMode(ModeEnum.RT);
-    },
-
-    'click .export-data': function( event, template ) {
-    $( event.target ).button( '...' );
-
-    var boo = new Blob([this.content]);
-    let fileName = this.title + ".md";
-    saveAs( boo, fileName );
-
-    $( event.target ).button( 'reset' );
-  }
+    }
 });
 
 /**
@@ -496,7 +486,12 @@ function EditManager() {
 
 		var rtFunction = function () {
 			var style = new CKEDITOR.style({element: "h"+level});
-			toggleStyle(this.rtEditor, style);
+			if (style.checkActive(this.rtEditor.elementPath(), this.rtEditor)) {
+				this.rtEditor.removeStyle(style);
+			} else {
+				this.rtEditor.applyStyle(style);
+			}
+			rtEditor.fire( 'saveSnapshot' );
 		}.bind(this);
 
 		executeFunctionOnMode(this.mode.get(), mdFunction, rtFunction);
@@ -549,13 +544,4 @@ function surround(mdEditor, startText, endText) {
 		mdEditor.moveCursorTo(cursor.row, cursor.column + startText.length);
 		mdEditor.focus();
 	}
-}
-
-function toggleStyle(rtEditor, style) {
-	if (style.checkActive(rtEditor.elementPath(), rtEditor)) {
-		rtEditor.removeStyle(style);
-	} else {
-		rtEditor.applyStyle(style);
-	}
-	rtEditor.fire( 'saveSnapshot' );
 }
