@@ -89,12 +89,26 @@
         color:$menu-primary-color;
         height: 100%;
 
-
         &:hover {
             background-color: $menu-primary-color;
             color:$menu-background-color;
         }
     }
+
+		.btn-login {
+			width: 100%;
+			background-color: inherit;
+			border-width: 1px;
+			border-radius: 40px;
+			border-color: $menu-primary-color;
+			color:$menu-primary-color;
+			height: 100%;
+
+			&:hover {
+				background-color: $menu-primary-color;
+				color:$menu-background-color;
+			}
+		}
 }
 
 .active {

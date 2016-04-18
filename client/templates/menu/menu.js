@@ -24,7 +24,16 @@ Template.menu.events({
             content: currentDate.toString(),
             createdAt: currentDate
         });
-    }
+    }/*,
+
+    "click .btn-login": function(event){
+      Meteor.loginWithGithub({
+        requestPermissions: ['user', 'public_repo']
+        }, function (err) {
+          if (err)
+          Session.set('errorMessage', err.reason || 'Unknown error');
+          });
+    }*/
 });
 
 Template.file.events({
