@@ -63,6 +63,8 @@ Template.editor.onRendered(function () {
 
 	// Create and configure the edit manager
     this.editManager = new EditManager();
+	console.log(this.editManager);
+
 	this.editManager.mdEditor = mdEditor;
 	this.editManager.rtEditor = rtEditor;
 	this.editManager.setMode(ModeEnum.MD);
@@ -77,11 +79,6 @@ Template.editor.onRendered(function () {
 		}
 
     }.bind(this));
-
-	// $( ".menu-footer" ).on( "click", function() {
-	//		this.editManager.bold();
-	// }.bind(this));
-
 });
 
 /**
@@ -204,7 +201,7 @@ Template.editor.helpers({
  */
 function setDocumentTitle(context, title){
     var _id = context._id;
-    if (context && context.title) {
+    if (context) {
         Documents.update(_id, {
         $set: {title: title}
       });
@@ -252,7 +249,6 @@ function EditManager() {
 		console.log('Saving...');
 
 	    if (this.context) {
-
 	        switch (this.mode.get()) {
 	            case ModeEnum.MD:
 	            	setDocumentContent(this.context, this.mdEditor.getValue());
@@ -289,9 +285,9 @@ function EditManager() {
 			// Load into rtEditor
 			this.rtEditor.setData(marked(context.content));
 			this.rtEditor.on('change', function(err) {
-				console.log("Change!");
 				this.save();
 			}.bind(this));
+
 		} else if (this.context != context){
 			this.context = context;
 		}
