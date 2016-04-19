@@ -21,7 +21,7 @@ Template.menu.events({
         // Insert a file into the collection
         Documents.insert({
             title: "Untitled",
-            content: currentDate.toString(),
+            content: " ",
             createdAt: currentDate
         });
     }/*,
@@ -39,13 +39,17 @@ Template.menu.events({
 Template.file.events({
 
     "click": function(event, template) {
-        Session.set('currentDocument', this._id);
-        Router.go('editor.selected', {_id: this._id});
+        var target = $(event.target);
+        if (!target.hasClass( "destroy" )) {
+            console.log("sup");
+            Session.set('currentDocument', this._id);
+            Router.go('editor.selected', {_id: this._id});
+        }
     },
     "click .destroy": function(event, template) {
 
-        var context = template.data;
-        if (context._id == this._id) {
+        if (Session.get('currentDocument') == this._id) {
+
             Session.set('currentDocument', undefined);
             Router.go('editor.empty');
         }
