@@ -94,9 +94,9 @@ Template.editor.events({
         event.preventDefault();
         setDocumentTitle(context, event.target.text.value);
     },
-    'click #bold' : function(t, e) {
+    'click #bold' : function(event, template) {
 
-        var editManager = t.editManager;
+        var editManager = template.editManager;
 		editManager.bold();
     },
     'click #italic' : function(event, template) {
