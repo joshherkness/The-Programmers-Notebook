@@ -1,19 +1,39 @@
-# This is the project directory for an application currently known as The Programmers Notebook
+# The programmers notebook
 
-Currently in development.
+A note taking application created for programmers, by programmers.  Initially created for a sophomore computer science course at Oakland University.
 
-# GitHub flow
+A working version of the web application can be viewed here:
 
-1. Pull from origin master
-2. Create a feature branch and check it out `git checkout -B feature` * name it something other than feature, like user-authentication, or facebook-integration
-3. Add your changes
-4. Commit locally `git commit -m "Commit message here"`
-5. Push to origin `git push`
-6. Go onto github and create a pull request for your feature
-7. Comment and accept your pull request
+```
+http://the-programmers-notebook.herokuapp.com
+```
 
-## Curators:
+> Not currently in development.
 
-- Joshua Herkness
-- Nicholas Neumeyer
-- Tyler Gnass
+### Running the project
+
+Ensure that the meteor command line interface is installed on your local machine.  See [this](https://www.meteor.com/install) for more details.
+
+1. Clone this repo on a local machine.
+2. Open your terminal and navigate to the projects root directory.
+3. Run `$ meteor`.
+4. The project should open at `http://localhost:3000/` unless noted otherwise.
+
+### Deploying the project
+
+This project is currently deployed using Heroku.  See [this](http://justmeteor.com/blog/deploy-to-production-on-heroku/) for additional information.
+
+> The following should only be used by a project collaborator.
+
+1. Clone this repo on a local machine.
+2. Open your terminal and navigate to the projects root directory.
+3. Ensure that you are on the master branch.
+4. Run `$ git push heroku master`
+
+### Current bugs
+
+- When web application is initially loaded, the user must select a file and switch between `markdown` and `rich text` (In the upper right) for the content to load into the editor.
+
+### Future plans
+
+I plan to move away from the Meteor development environment, as it is far too opinionated.
